@@ -46,3 +46,16 @@ CREATE TABLE alertas (
 );
 
 CREATE INDEX idx_eventos_usuario_fecha ON eventos (usuario, fecha_hora);
+   ALTER TABLE eventos ADD COLUMN incidente_id INT;
+
+CREATE TABLE casos (
+  id         SERIAL PRIMARY KEY,
+  usuario    TEXT NOT NULL,
+  inicio     TIMESTAMPTZ NOT NULL,
+  fin        TIMESTAMPTZ NOT NULL,
+  severidad  TEXT NOT NULL,
+  certeza    NUMERIC(3,2) NOT NULL,
+  fuentes    TEXT NOT NULL,   
+  resumen    TEXT NOT NULL
+);
+ALTER TABLE alertas ADD COLUMN caso_id INT REFERENCES casos(id);
